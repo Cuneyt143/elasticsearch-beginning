@@ -1,0 +1,56 @@
+systemctl1 status network
+-sistem durumunu izleriz.
+
+ip address
+
+--> yrni bağdaştırıcı
+
+/etc/sysconfig/network-scripts
+enp0s8
+
+
+mobaxterm sessison oluşturmadan ssh bağlantısı kurma
+
+ssh odata@192.168.56.101 -p 22
+
+sudo yum install nano
+nano ifcfg-enp0s8
+sudo !!    /çift ünlem bir önceki komutu direk kullanır.
+
+DEVICE=enp0s8
+NAME=enp0s8
+TYPE=Ethernet
+BOOTPRO=none
+ONBOOT=yes
+IPADDR=192.168.56.101
+PREFIX=24
+
+enp0s8 dosyasını 102 yaptım daha sonra dosyayı kontrol edip networki yeniden başlattık.
+
+systemctl restart network
+
+
+// ip adresi ayarlama adımları
+1.Centos kur
+2.sistem durumunu incele - systemctl status network
+3.ip adresine bak -ip address
+// İp adresi değitirmek için
+4.network dosya dizinine git -cd /etc/sysconfig/network-scripts
+5.nano ifcfg-enp0s8 dosyası oluşturulur ve gerekli ayarlamalar yapılır.
+6.network tekrar başlatılır   -systemctl1 restart network
+
+-Master node üzerine kurulum aşamaları
+
+
+**Elastic kurulurken ubuntu için kurarken .deb centos için .rpm olur
+
+elastic kurulduktan sonra yml dosyası açılır. -sudo nano /etc/elasticsearch/elasticsearch.yml
+
+Cluster name ayarlanır  -- ostim
+node name ayarlanır     --master or data node
+
+.yml dostasına aşşağıdaki 2 satır eklenir:
+node.master: true
+node.data: false
+
+oluşturulan tüm makinelerin ip adresleri dicovery kısmında seed_hosts kısmına gireriz.
